@@ -1,13 +1,13 @@
-# Python Data Structures
-
-## Description
-Ce projet contient des scripts Python pour manipuler et afficher des structures de données. Chaque script est conçu pour répondre à des exigences spécifiques et suit les normes de style de code `pycodestyle`.
-
-## Fichiers
-
-### 0-print_list_integer.py
-Ce script contient une fonction `print_list_integer` qui imprime tous les entiers d'une liste, un par ligne.
-
-#### Prototype
-```python
-def print_list_integer(my_list=[]):
+0. Print a list of integers
+1. Secure access to an element in a list
+2. Replace element
+3. Print a list of integers... in reverse!
+4. Replace in a copy
+5. Can you C me now?
+6. Lists of lists = Matrix
+7. Tuples addition
+8. More returns!
+9. Find the max
+10. Only by 2
+11. Delete at
+12. Switch
