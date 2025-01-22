@@ -1,0 +1,23 @@
+>>> import importlib
+>>> text_indentation = importlib.import_module('5-text_indentation').text_indentation
+>>> text_indentation("Hello. World? Test:")
+Hello.
+World?
+Test:
+
+>>> text_indentation("This is a test. Another sentence? And now: continue")
+This is a test.
+Another sentence?
+And now:
+continue
+
+>>> text_indentation("No special characters")
+No special characters
+
+>>> text_indentation("")
+<BLANKLINE>
+
+>>> text_indentation(42)
+Traceback (most recent call last):
+    ...
+TypeError: text must be a string
