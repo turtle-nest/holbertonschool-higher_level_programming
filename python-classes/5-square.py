@@ -67,5 +67,6 @@ class Square:
         """
         if self.__size == 0:
             print()
-        str = '#' * self.__size
-        print((str + '\n') * self.__size)
+        else:
+            str = '#' * self.__size
+            print((str + '\n') * self.__size)
