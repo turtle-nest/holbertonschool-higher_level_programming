@@ -69,4 +69,4 @@ class Square:
             print()
         else:
             str = '#' * self.__size
-            print((str + '\n') * self.__size)
+            print((str + '\n') * self.__size, end="")
