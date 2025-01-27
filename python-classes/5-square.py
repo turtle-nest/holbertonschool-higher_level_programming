@@ -65,5 +65,7 @@ class Square:
         Return:
             None
         """
+        if self.__size == 0:
+            print()
         str = '#' * self.__size
         print((str + '\n') * self.__size)
