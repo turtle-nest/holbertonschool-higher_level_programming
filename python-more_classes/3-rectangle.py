@@ -25,7 +25,7 @@ class Rectangle:
 
         if not isinstance(height, int):
             raise TypeError("height must be an integer")
-        elif width < 0:
+        elif height < 0:
             raise ValueError("height must be >= 0")
         else:
             self.__height = height
@@ -101,21 +101,28 @@ class Rectangle:
         """
         Calculates the perimeter of the rectangle.
 
-        Returns: The perimeter of the rectangle.
+        Returns: 
+            int: The perimeter of the rectangle.
         """
         if self.__width == 0 or self.__height == 0:
             return 0
         else:
             return self.__width * 2 + self.__height * 2
 
-    def my_print(self):
+    def __str__ (self):
         """
-        Prints the rectangle with the character #.
+        Returns a string representation of the rectangle
+        with the character '#'.
+
+        Returns:
+            str: The rectangle in string form or an empty string
+            if width or height is 0.
         """
         if self.__height == 0 or self.__width == 0:
-            print()
+            return ""
 
-        print(str('#') * self.__width)
-
-        for i in range(self.__height):
-            print
+        rectangle_str = ""
+        for _ in range(self.__height):
+            rectangle_str += "#" * self.__width
+            rectangle_str += "\n"
+        return rectangle_str.strip()
