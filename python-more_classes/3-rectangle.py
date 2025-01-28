@@ -25,7 +25,7 @@ class Rectangle:
 
         if not isinstance(height, int):
             raise TypeError("height must be an integer")
-        elif height < 0:
+        elif width < 0:
             raise ValueError("height must be >= 0")
         else:
             self.__height = height
@@ -107,3 +107,15 @@ class Rectangle:
             return 0
         else:
             return self.__width * 2 + self.__height * 2
+
+    def my_print(self):
+        """
+        Prints the rectangle with the character #.
+        """
+        if self.__height == 0 or self.__width == 0:
+            print()
+
+        print(str('#') * self.__width)
+
+        for i in range(self.__height):
+            print
