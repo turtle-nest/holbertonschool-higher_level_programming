@@ -1,0 +1,14 @@
+>>> import importlib
+>>> BaseGeometry = importlib.import_module('7-base_geometry').BaseGeometry
+>>> geom = BaseGeometry()
+>>> geom.integer_validator("width", 10)
+
+>>> geom.integer_validator("height", -5)
+Traceback (most recent call last):
+    ...
+ValueError: height must be greater than 0
+
+>>> geom.integer_validator("width", "ten")
+Traceback (most recent call last):
+    ...
+TypeError: width must be an integer
