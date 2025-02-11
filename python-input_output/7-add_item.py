@@ -5,7 +5,8 @@ from 6-load_from_json_file import load_from_json_file
 
 filename = "add_item.json"
 
-# Try to load the existing data from the file, or create an empty list if the file doesn't exist
+# Try to load the existing data from the file,
+# or create an empty list if the file doesn't exist
 try:
     items = load_from_json_file(filename)
 except FileNotFoundError:
