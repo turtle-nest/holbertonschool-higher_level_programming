@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import json
+from json import dumps
 
 def to_json_string(my_obj):
     """
@@ -11,4 +11,4 @@ def to_json_string(my_obj):
     Returns:
     A string containing the JSON representation of the object.
     """
-    return json.dump(my_obj)
+    return dumps(my_obj)
