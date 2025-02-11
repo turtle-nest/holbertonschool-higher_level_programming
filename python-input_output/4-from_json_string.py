@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Description of the module"""
 import json
 
 def from_json_string(my_str):
