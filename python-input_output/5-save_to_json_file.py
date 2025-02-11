@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Description of the module"""
 import json
 
 def save_to_json_file(my_obj, filename):
