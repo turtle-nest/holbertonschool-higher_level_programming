@@ -15,7 +15,6 @@ class Student:
         self.last_name = last_name
         self.age = age
 
-    @classmethod
     def to_json(self):
         """Return the dictionnary of the instance."""
         return self.__dict__
