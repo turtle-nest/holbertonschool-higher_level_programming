@@ -36,21 +36,24 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
+
         elif self.path == '/data':
             self.send_response(200)
             self.send_header("Content-type", "application/json")
-            self.send_header()
+            self.end_header()
             data = {"name": "John", "age": 30, "city": "New York"}
             self.wfile.write(json.dumps(data).encode('utf-8'))
+
         elif self.path == '/status':
             self.send_response(200)
             self.send_header("Content-type", "text/plain")
-            self.send_header()
+            self.end_header()
             self.wfile.write(b"OK")
+
         else:
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
-            self.send_header()
+            self.end_header()
             self.wfile.write(b"Endpoint not found")
 
 
@@ -63,7 +66,11 @@ def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8000):
         handler_class (BaseHTTPRequestHandler): Request handler class.
         port (int): Port on which the server will be started.
     """
-    server_adress = ('', port)
-    httpd = server_class(server_adress, handler_class)
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
     print(f"Starting HTTP server on port {port}...")
     httpd.serve_forever()
+
+
+if __name__ == "__main__":
+    run()
