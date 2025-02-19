@@ -21,9 +21,6 @@ users = {}
 def home():
     """
     Return a welcome message.
-    
-    Returns:
-        str: A welcome message.
     """
     return "Welcome to the Flask API!"
 
@@ -32,9 +29,6 @@ def home():
 def get_username():
     """
     Return a JSON list of all usernames stored in the API.
-    
-    Returns:
-        Response: A Flask JSON response containing a list of usernames.
     """
     return jsonify(list(users.keys()))
 
@@ -43,11 +37,8 @@ def get_username():
 def status():
     """
     Return the API status.
-    
-    Returns:
-        Response: A Flask JSON response indicating the API status.
     """
-    return "OK"
+    return jsonify("OK")
 
 
 @app.route('/users/<username>')
@@ -57,10 +48,6 @@ def get_user(username):
     
     Args:
         username (str): The username to look for.
-    
-    Returns:
-        Response: A Flask JSON response with the user data or an error 
-        message.
     """
     user = users.get(username)
     if user:
@@ -71,28 +58,23 @@ def get_user(username):
 def add_user():
     """
     Handle POST request to add a new user to the API.
-    
-    Expects a JSON payload with the following keys:
-        - username: The username of the user.
-        - name: The full name of the user.
-        - age: The age of the user (integer).
-        - city: The city where the user lives.
-    
-    Returns:
-        Response: A Flask JSON response with a confirmation message and 
-        the added user data.
-        Returns an error response if any field is missing, if the user 
-        already exists, or if the data format is incorrect.
     """
     data = request.get_json()
 
+    if not data or "username" not in data:
+        return jsonify({"error": "Username is required"}), 400
+
     username = data["username"]
+
     if username in users:
         return jsonify({"error": "User already exists"}), 400
 
-    users[username] = data
-    return jsonify({"message": "User added", "user": data}), 201
+    user_data = data.copy()
+    user_data["username"] = username
+
+    users[username] = user_data
+    return jsonify({"message": "User added", "user": user_data}), 201
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
