@@ -14,7 +14,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-users = {}  # Empty user dictionary
+users = {{}}
 
 
 @app.route('/')
