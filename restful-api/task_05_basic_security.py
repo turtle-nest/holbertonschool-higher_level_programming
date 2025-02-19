@@ -14,7 +14,18 @@ auth = HTTPBasicAuth()
 app.config["JWT_SECRET_KEY"] = "your_secret_key"
 jwt = JWTManager(app)
 
-users = {}
+users = {
+    "user1": {
+        "username": "user1",
+        "password": generate_password_hash("password"),
+        "role": "user"
+    },
+    "admin1": {
+        "username": "admin1",
+        "password": generate_password_hash("password"),
+        "role": "admin"
+    }
+}
 
 @auth.verify_password
 def verify_password(username, password):
@@ -48,12 +59,12 @@ def jwt_protected():
     return "JWT Auth: Access Granted"
 
 @app.route("/admin-only", methods=['GET'])
-@jwt_required
+@jwt_required()
 def admin_only():
     """Route accessible only by admin users"""
     identity = get_jwt_identity()
     if identity["role"] != "admin":
-        return jsonify({"error": "Admin access required"}), 403
+        return jsonify({"error": "Admin access required"}), 401
     return "Admin Access: Granted"
 
 @jwt.unauthorized_loader
