@@ -65,15 +65,9 @@ def add_user():
         return jsonify({"error": "Username is required"}), 400
 
     username = data["username"]
+    users[username] = data
 
-    if username in users:
-        return jsonify({"error": "User already exists"}), 400
-
-    user_data = data.copy()
-    user_data["username"] = username
-
-    users[username] = user_data
-    return jsonify({"message": "User added", "user": user_data}), 201
+    return jsonify({"message": "User added", "user": data}), 201
 
 
 if __name__ == "__main__":
