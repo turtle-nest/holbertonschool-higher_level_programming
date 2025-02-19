@@ -14,20 +14,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-users = {
-    "jane": {
-        "username": "jane", 
-        "name": "Jane",
-        "age": 28,
-        "city": "Los Angeles"
-    },
-    "john": {
-        "username": "john", 
-        "name": "John",
-        "age": 30,
-        "city": "New York"
-    }
-}
+users = {}  # Empty user dictionary
 
 
 @app.route('/')
@@ -72,7 +59,8 @@ def get_user(username):
         username (str): The username to look for.
     
     Returns:
-        Response: A Flask JSON response with the user data or an error message.
+        Response: A Flask JSON response with the user data or an error 
+        message.
     """
     user = users.get(username)
     if user:
@@ -92,14 +80,18 @@ def add_user():
         - city: The city where the user lives.
     
     Returns:
-        Response: A Flask JSON response with a confirmation message and the added user data.
-                  Returns an error response if any field is missing or if the user already exists.
+        Response: A Flask JSON response with a confirmation message and 
+        the added user data.
+        Returns an error response if any field is missing or if the user 
+        already exists.
     """
     data = request.get_json()
 
     required_fields = ["username", "name", "age", "city"]
     if not data or any(field not in data for field in required_fields):
-        return jsonify({"error": "All fields (username, name, age, city) are required"}), 400
+        return jsonify(
+            {"error": "All fields (username, name, age, city) are required"}
+        ), 400
 
     username = data["username"]
     if username in users:
@@ -113,7 +105,8 @@ def run_server():
     """
     Run the Flask development server.
     
-    This function starts the Flask server on host 0.0.0.0 and port 5000 with debug mode enabled.
+    This function starts the Flask server on host 0.0.0.0 and port 5000 
+    with debug mode enabled.
     """
     app.run(host="0.0.0.0", port=5000, debug=True)
 
