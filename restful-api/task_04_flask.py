@@ -47,7 +47,7 @@ def status():
     Returns:
         Response: A Flask JSON response indicating the API status.
     """
-    return jsonify({"status": "OK"})
+    return "OK"
 
 
 @app.route('/users/<username>')
