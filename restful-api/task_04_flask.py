@@ -26,7 +26,7 @@ def home():
 
 
 @app.route('/data')
-def get_username():
+def get_users():
     """
     Return a JSON list of all usernames stored in the API.
     """
