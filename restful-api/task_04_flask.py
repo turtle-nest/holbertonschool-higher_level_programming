@@ -39,10 +39,10 @@ def get_username():
 @app.route('/status')
 def status():
     """Return API status."""
-    return "OK"
+    return jsonify({"status": "OK"})
 
 
-@app.route('/user/<username>')
+@app.route('/users/<username>')
 def get_user(username):
      """Return user details if the user exists,
      else return an error message.
@@ -54,16 +54,21 @@ def get_user(username):
 
 
 @app.route('/add_user', methods=['POST'])
-def add_user(username):
+def add_user():
     """Handle POST request to add a new user to the API."""
     data = request.get_json()
-    if not data or "username" not in data:
-        return jsonify({"error": "Username is required"}), 400
+
+    required_fields = ["username", "name", "age", "city"]
+    if not data or any(field not in data for field in required_fields):
+        return jsonify({"error": "All fields (username, name, age, city) are required"}), 400
+
     username = data["username"]
     if username in users:
         return jsonify({"error": "User already exists"}), 400
+
     users[username] = data
     return jsonify({"message": "User added", "user": data}), 201
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
