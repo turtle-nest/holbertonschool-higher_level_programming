@@ -38,7 +38,7 @@ def status():
     """
     Return the API status.
     """
-    return jsonify("OK")
+    return "OK"
 
 
 @app.route('/users/<username>')
