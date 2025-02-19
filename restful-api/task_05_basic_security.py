@@ -13,12 +13,6 @@ auth = HTTPBasicAuth()
 
 app.config["JWT_SECRET_KEY"] = "your_secret_key"
 jwt = JWTManager(app)
-jwt.unauthorized_loader(handle_unauthorized_error)
-jwt.invalid_token_loader(handle_invalid_token_error)
-jwt.expired_token_loader(handle_expired_token_error)
-jwt.revoked_token_loader(handle_revoked_token_error)
-jwt.needs_fresh_token_loader(handle_needs_fresh_token_error)
-
 
 users = {}
 
