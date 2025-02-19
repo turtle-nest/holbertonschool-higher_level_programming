@@ -87,12 +87,6 @@ def add_user():
     """
     data = request.get_json()
 
-    required_fields = ["username", "name", "age", "city"]
-    if not data or any(field not in data for field in required_fields):
-        return jsonify(
-            {"error": "All fields (username, name, age, city) are required"}
-        ), 400
-
     username = data["username"]
     if username in users:
         return jsonify({"error": "User already exists"}), 400
@@ -101,15 +95,5 @@ def add_user():
     return jsonify({"message": "User added", "user": data}), 201
 
 
-def run_server():
-    """
-    Run the Flask development server.
-    
-    This function starts the Flask server on host 0.0.0.0 and port 5000 
-    with debug mode enabled.
-    """
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
-
 if __name__ == "__main__":
-    run_server()
+    app.run()
