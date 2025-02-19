@@ -86,15 +86,6 @@ def add_user():
     """
     data = request.get_json()
 
-    # Vérification des champs obligatoires
-    required_fields = ["username", "name", "age", "city"]
-    if not all(field in data for field in required_fields):
-        return jsonify({"error": "Missing required fields"}), 400
-
-    # Vérification du type des données
-    if not isinstance(data["age"], int):
-        return jsonify({"error": "Invalid data type for 'age', must be an integer"}), 400
-
     username = data["username"]
     if username in users:
         return jsonify({"error": "User already exists"}), 400
