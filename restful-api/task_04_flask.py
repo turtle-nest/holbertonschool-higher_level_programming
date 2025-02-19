@@ -67,7 +67,6 @@ def get_user(username):
         return jsonify(user)
     return jsonify({"error": "User not found"}), 404
 
-
 @app.route('/add_user', methods=['POST'])
 def add_user():
     """
@@ -76,16 +75,25 @@ def add_user():
     Expects a JSON payload with the following keys:
         - username: The username of the user.
         - name: The full name of the user.
-        - age: The age of the user.
+        - age: The age of the user (integer).
         - city: The city where the user lives.
     
     Returns:
         Response: A Flask JSON response with a confirmation message and 
         the added user data.
-        Returns an error response if any field is missing or if the user 
-        already exists.
+        Returns an error response if any field is missing, if the user 
+        already exists, or if the data format is incorrect.
     """
     data = request.get_json()
+
+    # Vérification des champs obligatoires
+    required_fields = ["username", "name", "age", "city"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    # Vérification du type des données
+    if not isinstance(data["age"], int):
+        return jsonify({"error": "Invalid data type for 'age', must be an integer"}), 400
 
     username = data["username"]
     if username in users:
