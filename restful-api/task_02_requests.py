@@ -49,3 +49,7 @@ def fetch_and_save_posts():
         print("Data successfully saved to posts.csv")
     else:
         print("Failed to retrieve posts")
+
+if __name__ == "__main__":
+    fetch_and_print_posts()
+    fetch_and_save_posts()
