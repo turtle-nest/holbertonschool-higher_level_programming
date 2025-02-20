@@ -28,9 +28,8 @@ users = {
 @auth.verify_password
 def verify_password(username, password):
     """Verify username and password"""
-    user =users.get(username)
-    if user and \
-        check_password_hash(user['password'], password):
+    if username in users and \
+        check_password_hash(users[username]["password"], password):
         return username
     return None
 
@@ -49,7 +48,7 @@ def login():
     password = data.get("password")
 
     if username in users and\
-       check_password_hash(users[username]['password'], password):
+       check_password_hash(users[username]["password"], password):
         role = users[username]["role"]
         access_token = create_access_token(identity=username,
                                         additional_claims={"role": role})
@@ -69,7 +68,7 @@ def admin_only():
     claims = get_jwt()
     if claims.get('role') != "admin":
         return jsonify({"error": "Admin access required"}), 403
-    return jsonify("Admin Access: Granted"), 200
+    return "Admin Access: Granted"
 
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
