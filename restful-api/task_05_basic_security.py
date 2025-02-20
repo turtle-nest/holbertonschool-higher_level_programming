@@ -69,7 +69,7 @@ def login():
 @jwt_required()
 def jwt_protected():
     """JWT protected route"""
-    return "JWT Auth: Access Granted"
+    return jsonify(message="JWT Auth: Access Granted"), 200
 
 @app.route("/admin-only", methods=['GET'])
 @jwt_required()
@@ -79,7 +79,7 @@ def admin_only():
     role = claims.get("role")
     if role != "admin":
         return jsonify({"error": "Admin access required"}), 403
-    return "Admin Access: Granted"
+    return jsonify("Admin Access: Granted"), 200
 
 @jwt.unauthorized_loader
 def handle_unauthorized_error(err):
