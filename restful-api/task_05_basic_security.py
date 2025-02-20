@@ -44,18 +44,26 @@ def basic_protected():
 @app.route("/login", methods=['POST'])
 def login():
     """Login endpoint to obtain a JWT token"""
+
     data = request.get_json()
+    if not data or "username" not in data or \
+        "password" not in data:
+        return jsonify({"error": "Invalid request format"}), 400
+
     username = data.get("username")
     password = data.get("password")
+
     user = users.get(username)
+    if not user or not check_password_hash(user['password'], password):
+        return jsonify({"error": "Invalid username or password"}), 401
+
     role = user["role"]
-    if user and check_password_hash(user['password'], password):
-        access_token = create_access_token(
-            identity={'username': username},
-            additional_claims={"role": role}
-        )
-        return jsonify(access_token=access_token)
-    return jsonify({"error": "Invalid credentials"}), 401
+    access_token = create_access_token(
+        identity={"username": username},
+        additional_claims={"role": role}
+    )
+
+    return jsonify(access_token=access_token), 200
 
 @app.route("/jwt-protected", methods=['GET'])
 @jwt_required()
