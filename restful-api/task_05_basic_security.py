@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 """API Security and Authentication Techniques"""
 
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import (JWTManager, create_access_token,
-                                jwt_required, get_jwt)
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required
+from flask_jwt_extended import get_jwt_identity, get_jwt
 
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "your_secret_key"
 auth = HTTPBasicAuth()
+app.config["JWT_SECRET_KEY"] = "your_secret_key"
 jwt = JWTManager(app)
 
 users = {
@@ -41,35 +41,26 @@ def basic_protected():
     return "Basic Auth: Access Granted"
 
 @app.route("/login", methods=['POST'])
-@auth.login_required
 def login():
     """Login endpoint to obtain a JWT token"""
 
-    data = request.get_json()
-    if not data or "username" not in data or \
-        "password" not in data:
-        return jsonify({"error": "Invalid request format"}), 400
-
+    data = request.json
     username = data.get("username")
     password = data.get("password")
 
-    user = users.get(username)
-    if not user or not check_password_hash(user['password'], password):
-        return jsonify({"error": "Invalid username or password"}), 401
-
-    role = user["role"]
-    access_token = create_access_token(
-        identity={"username": username},
-        additional_claims={"role": role}
-    )
-
-    return jsonify(access_token=access_token), 200
+    if username in users and\
+       check_password_hash(users[username]['password'], password):
+        role = users[username]["role"]
+        access_token = create_access_token(identity=username,
+                                        additional_claims={"role": role})
+        return jsonify(access_token=access_token)
+    return jsonify({"error": "Invalid username or password"}), 401
 
 @app.route("/jwt-protected", methods=['GET'])
 @jwt_required()
 def jwt_protected():
     """JWT protected route"""
-    return jsonify(message="JWT Auth: Access Granted"), 200
+    return "JWT Auth: Access Granted"
 
 @app.route("/admin-only", methods=['GET'])
 @jwt_required()
