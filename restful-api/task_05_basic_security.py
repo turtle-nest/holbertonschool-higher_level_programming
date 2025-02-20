@@ -41,6 +41,7 @@ def basic_protected():
     return "Basic Auth: Access Granted"
 
 @app.route("/login", methods=['POST'])
+@auth.login_required
 def login():
     """Login endpoint to obtain a JWT token"""
 
