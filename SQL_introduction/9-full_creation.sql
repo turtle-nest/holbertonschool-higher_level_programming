@@ -1,6 +1,4 @@
 -- Full creation
--- a script that creates a table called second_table in the database hbtn_0c_0 and adds multiple rows
-
 -- Create the table second_table if it does not exist
 CREATE TABLE IF NOT EXISTS second_table (
 	id INT,
