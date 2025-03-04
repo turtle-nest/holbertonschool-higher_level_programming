@@ -12,3 +12,5 @@ VALUES
 	(2, 'Alex', 3),
 	(3, 'Bob', 14),
 	(4, 'Georges', 8);
+ON DUPLICATE KEY UPDATE
+	id = VALUES(id), name = VALUES(name), score = VALUES(score);
