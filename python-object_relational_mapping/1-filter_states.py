@@ -11,7 +11,7 @@ if __name__ == "__main__":
     db_name = sys.argv[3]
 
     db = MySQLdb.connect(host="localhost", port=3306, user=username,
-                         passwd=password, db=db_name)
+                        passwd=password, db=db_name)
 
     cur = db.cursor()
     cur.execute("SELECT * FROM states WHERE name LIKE 'N%' \
