@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-List all states with a name starting with N (upper N)
+A script that takes in an argument and displays all values in the states.
 """
 import MySQLdb
 import sys
@@ -14,8 +14,7 @@ if __name__ == "__main__":
                          passwd=password, db=db_name)
 
     cur = db.cursor()
-    cur.execute("SELECT * FROM states WHERE name LIKE 'N%' \
-                ORDER BY states.id ASC")
+    cur.execute("SELECT * FROM states WHERE id = 2 ORDER BY states.id ASC")
 
     for state in cur.fetchall():
         print(state)
