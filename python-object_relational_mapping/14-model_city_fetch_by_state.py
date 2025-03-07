@@ -10,8 +10,13 @@ import sys
 
 
 if __name__ == "__main__":
+    """
+    Entry point
+    """
     username = sys.argv[1]
+    """str: The MySQL username."""
     password = sys.argv[2]
+    """str: The name of the MySQL database."""
     database = sys.argv[3]
 
     engine = create_engine(

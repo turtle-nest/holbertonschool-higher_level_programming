@@ -13,4 +13,7 @@ class State(Base):
     """State class"""
     __tablename__ = 'states'
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    """int: Unique identifier for the state. Primary key, cannot be null."""
     name = Column(String(128), nullable=False)
+    """str: Name of the state. Cannot be null."""
+
